@@ -117,13 +117,15 @@ class CartNotifier extends StateNotifier<Map<String, CartModel>> {
   }
 
   void decrementItem(String productId) {
-    final currentQuantity = state[productId]!.quantity;
-    state = {
-      ...state,
-      productId: state[productId]!.copyWith(
-        quantity: currentQuantity > 1 ? currentQuantity - 1 : 1
-      ),
-    };
+    if (state.containsKey(productId) && state[productId]!.quantity > 1) {
+      final currentQuantity = state[productId]!.quantity;
+      state = {
+        ...state,
+        productId: state[productId]!.copyWith(
+          quantity: currentQuantity > 1 ? currentQuantity - 1 : 1
+        ),
+      };
+      } 
     _saveState();
   }
 
