@@ -1,361 +1,479 @@
-
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+import 'package:reto_radiance/views/screens/nav_screens/widgets/about_screen_constants.dart';
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        toolbarHeight: 75,
-        backgroundColor: Colors.white,
-        title: Center(
-          child: Text(
-            'About RetoINDIA',
-            style: GoogleFonts.getFont(
-              'DM Sans',
-              fontWeight: FontWeight.w400,
-              color: Colors.purple,
-              fontSize: 32,
-              letterSpacing: 0.3,
-            ),
+        title: const Text(
+          Constants.aboutUsTitle,
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+        backgroundColor: const Color(0xFFFFE3C5),
+        centerTitle: true,
+      ),
+      body: Container(
+        color: const Color(0xFFFFE3C5),
+        padding: const EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: 420, // Set a fixed height for the GridView
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 2.0,
+                    mainAxisSpacing: 10.0, // Increased vertical space
+                  ),
+                  itemCount: 9,
+                  itemBuilder: (context, index) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(16.0),
+                      child: Image.asset(
+                        'assets/images/grid_item${index + 1}.png',
+                        fit: BoxFit.contain,
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              const Text(
+                Constants.weAimToHelpText,
+                style: TextStyle(
+                  color: Color.fromRGBO(148, 72, 28, 1),
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              const Text(
+                Constants.missionText,
+                style: TextStyle(color: Colors.black, fontSize: 16.0),
+                textAlign: TextAlign.justify,
+              ),
+              const SizedBox(height: 20.0),
+              const Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: Constants.whatIsOurText,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    TextSpan(
+                      text: Constants.movementText,
+                      style: TextStyle(
+                        color: Color.fromRGBO(148, 72, 28, 1),
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              const Text(
+                Constants.empoweringText,
+                style: TextStyle(color: Colors.black, fontSize: 16.0),
+                textAlign: TextAlign.justify,
+              ),
+              const SizedBox(height: 20.0),
+              // First Stack widget
+              ModifiedCard(
+                text: Constants.firstStackText,
+                imagePath: "assets/images/stack_im1.png",
+                isImageRight: true,
+              ),
+              ModifiedCard(
+                text: Constants.secondStackText,
+                imagePath: "assets/images/stack_im2.png",
+                isImageRight: false,
+              ),
+              ModifiedCard(
+                text: Constants.thirdStackText,
+                imagePath: "assets/images/stack_im3.png",
+                isImageRight: true,
+              ),
+              const SizedBox(height: 20.0),
+              const Text(
+                Constants.testimonialsTitle,
+                style: TextStyle(
+                  color: Color.fromRGBO(148, 72, 28, 1),
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    TestimonialCard(
+                      name: "Aarohi Mehta",
+                      stars: 5,
+                      reviewText: Constants.aarohiReview,
+                      imagePath: 'assets/images/test_user1.png',
+                    ),
+                    SizedBox(width: 16),
+                    TestimonialCard(
+                      name: "Rohan Sharma",
+                      stars: 4.5,
+                      reviewText: Constants.rohanReview,
+                      imagePath: 'assets/images/test_user2.png',
+                    ),
+                    SizedBox(width: 16),
+                    TestimonialCard(
+                      name: "Priya Singh",
+                      stars: 4,
+                      reviewText: Constants.priyaReview,
+                      imagePath: 'assets/images/test_user1.png',
+                    ),
+                    SizedBox(width: 16),
+                    TestimonialCard(
+                      name: "Amit Patel",
+                      stars: 5,
+                      reviewText: Constants.amitReview,
+                      imagePath: 'assets/images/test_user2.png',
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/instagram_2.png',
+                    width: 30,
+                    height: 30,
+                    fit: BoxFit.cover,
+                  ),
+                  const SizedBox(width: 15.0),
+                  const Text(
+                    Constants.instagramHandle,
+                    style: TextStyle(
+                      color: Color.fromRGBO(148, 72, 28, 1),
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20.0),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(6, (index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16.0),
+                        child: Image.asset(
+                          'assets/images/shorts_${index + 1}.jpg',
+                          width: 150,
+                          height: 250,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ),
+              const SizedBox(height: 20.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/youtube_2.png',
+                    width: 30,
+                    height: 30,
+                    fit: BoxFit.cover,
+                  ),
+                  const SizedBox(width: 15.0),
+                  const Text(
+                    Constants.youtubeHandle,
+                    style: TextStyle(
+                      color: Color.fromRGBO(148, 72, 28, 1),
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20.0),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(6, (index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16.0),
+                        child: Image.asset(
+                          'assets/images/shorts_${6 - index}.jpg',
+                          width: 150,
+                          height: 250,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ),
+            ],
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          decoration: BoxDecoration(
-            color: const Color(0xFFF7D7FA),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(50),
-              topRight: Radius.circular(50),
+    );
+  }
+}
+
+class TestimonialCard extends StatelessWidget {
+  final String name;
+  final double stars;
+  final String reviewText;
+  final String imagePath;
+
+  const TestimonialCard({
+    super.key,
+    required this.name,
+    required this.stars,
+    required this.reviewText,
+    required this.imagePath,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 300,
+      height: 250,
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Color(0xFFB2694F),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.asset(
+                  imagePath,
+                  height: 100,
+                  width: 100,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              SizedBox(width: 12),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Row(
+                        children: List.generate(
+                          stars.floor(),
+                          (index) =>
+                              Icon(Icons.star, color: Colors.white, size: 20),
+                        ),
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        "${stars.toStringAsFixed(1)}/5",
+                        style: TextStyle(color: Colors.white, fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 8),
+          Text(reviewText, style: TextStyle(color: Colors.white, fontSize: 14)),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomStackWidget extends StatelessWidget {
+  final String text;
+  final String imagePath;
+  final bool isImageRight;
+
+  const CustomStackWidget({
+    super.key,
+    required this.text,
+    required this.imagePath,
+    required this.isImageRight,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      width: double.infinity,
+      height: 250,
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(148, 72, 28, 1),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Stack(
+        children: [
+          // Text
+          Positioned.fill(
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: isImageRight ? 16 : 140,
+                right: isImageRight ? 140 : 16,
+                top: 16,
+                bottom: 16,
+              ),
+              child: Text(
+                text,
+                style: TextStyle(color: Colors.white, fontSize: 14),
+              ),
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(35.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+          // Image
+          Positioned(
+            top: 20,
+            left: isImageRight ? null : 0,
+            right: isImageRight ? 0 : null,
+            child: ClipRRect(
+              borderRadius:
+                  isImageRight
+                      ? BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                      )
+                      : BorderRadius.only(
+                        topRight: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
+              child: Image.asset(
+                imagePath,
+                height: 160,
+                width: 120,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ModifiedCard extends StatelessWidget {
+  final String text;
+  final String imagePath;
+  final bool isImageRight;
+
+  const ModifiedCard({
+    super.key,
+    required this.text,
+    required this.imagePath,
+    required this.isImageRight,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // Use a fixed width or constrained width instead of double.infinity
+    return Center(
+      child: Container(
+        // width: MediaQuery.of(context).size.width * 0.8, // 80% of screen width
+        // padding: EdgeInsets.all(8),
+        margin: EdgeInsets.symmetric(vertical: 20),
+        decoration: BoxDecoration(
+          // border: Border.all(color: Colors.black, width: 2),
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final containerWidth = constraints.maxWidth * 0.8;
+            final imageWidth = constraints.maxWidth * 0.4;
+            final imageHeight = 200.0;
+            // Make sure text container has min height that's larger than image
+            final containerMinHeight =
+                220.0; // Slightly larger than image height
+
+            return Stack(
+              clipBehavior: Clip.none, // Allow image to overflow
               children: [
-                const Text(
-                  "Our AIM is to help needy people",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: const TextSpan(
-                    style: TextStyle(fontSize: 16, color: Colors.black87),
-                    children: [
-                      TextSpan(text: "At "),
-                      TextSpan(
-                        text: "RETO INDIA",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.purple,
-                        ),
-                      ),
-                      TextSpan(
-                        text:
-                        ", our mission is to empower underprivileged artisans and vendors by providing them with a platform to showcase their handmade creations. In supporting talent that often goes unnoticed and helping them achieve financial independence.",
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Divider(
-                  color: Colors.purple,
-                  thickness: 3,
-                  indent: 50,
-                  endIndent: 50,
-                ),
-                const SizedBox(height: 20),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: CachedNetworkImage(
-                    imageUrl: 'https://media.istockphoto.com/id/1133385486/photo/dilli-haat-new-delhi-india.jpg?s=612x612&w=0&k=20&c=R8VdfLRj1E2LrxV-8AKN1eDjOY6LSG0ENbNBsTR7zQ4=', // Replace with your actual image URL
-                    width: double.infinity,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const SizedBox(height: 20),
-
-                const Text(
-                  "WHY YOU JOIN US?",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: const TextSpan(
-                    style: TextStyle(fontSize: 16, color: Colors.black87),
-                    children: [
-                      TextSpan(text: "At "),
-                      TextSpan(
-                        text: "RETO INDIA",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.purple,
-                        ),
-                      ),
-                      TextSpan(
-                        text:
-                        ", we believe in empowering the true artisans of our land—those who craft beautiful, handmade treasures but struggle to find a marketplace to showcase their work. By joining us, you are not just buying a product; you are becoming part of a movement to uplift lives, preserve traditional craftsmanship, and connect with our roots.",
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  "What is our",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const Text(
-                  "Movement?",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.purple,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: const TextSpan(
-                    style: TextStyle(fontSize: 16, color: Colors.black87),
-                    children: [
-                      TextSpan(
-                        text: "Empowering ",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.purple,
-                        ),
-                      ),
-                      TextSpan(
-                        text:
-                        "Artisans And Vendors. Our Movement Is Dedicated To Uplifting Underprivileged Artisans, Roadside Vendors, And Craftspeople By Giving Them A Platform To Showcase And Sell Their Handmade Products.",
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 24),
-
-                Card(
-                  color: Colors.white,
-
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  elevation: 4,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            'https://media.istockphoto.com/id/1297412243/photo/a-female-artisan-busy-at-work-inside-saras-mela-fairground-held-at-newtown-kolkata.jpg?s=612x612&w=0&k=20&c=M6jE7E61ZzNSTMPU95EF06g7pXUvW0TBcbwMZGwoalA=',
-                            height: 200,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return const SizedBox(
-                                height: 200,
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
-                            },
-                            errorBuilder: (context, error, stackTrace) {
-                              return const SizedBox(
-                                height: 200,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.broken_image,
-                                    size: 50,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "Preserving Traditional Art and Craft",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.purple,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "We strive to preserve and promote the rich cultural heritage of our land by supporting handmade and traditional products crafted with skill and passion.",
-                          style: TextStyle(fontSize: 14, color: Colors.black87),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 20),
-                      ],
+                // Text container with dynamic height but minimum size
+                Align(
+                  alignment:
+                      isImageRight
+                          ? Alignment.centerLeft
+                          : Alignment.centerRight,
+                  child: Container(
+                    width: containerWidth,
+                    constraints: BoxConstraints(minHeight: containerMinHeight),
+                    padding: EdgeInsets.only(
+                      top: 16,
+                      bottom: 16,
+                      // Add padding on the side where the image will overlap
+                      left: isImageRight ? 16 : (imageWidth / 2) + 16,
+                      right: isImageRight ? (imageWidth / 2) + 16 : 16,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(148, 72, 28, 1),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      textAlign: TextAlign.start,
+                      text,
+                      style: TextStyle(color: Colors.white, fontSize: 17),
                     ),
                   ),
                 ),
-                const SizedBox(height: 24),
-                Card(
-                  color: Colors.white,
+                // Image positioned at middle height and overlapping exactly halfway
+                Positioned(
+                  left: isImageRight ? containerWidth - (imageWidth / 2) : null,
+                  right:
+                      isImageRight ? null : containerWidth - (imageWidth / 2),
+                  // Center the image vertically relative to the container's minimum height
+                  // top: (containerMinHeight - imageHeight) / 2,
+                  bottom: 100,
+                  top: 100,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.asset(
+                      imagePath.startsWith("assets")
+                          ? imagePath
+                          : "assets/images/shorts_1.jpg",
+                      width: imageWidth,
+                      height: imageHeight,
 
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  elevation: 4,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            'https://media.istockphoto.com/id/1446459501/photo/young-man-working-in-a-block-printing-factory-in-jaipur-india.jpg?s=612x612&w=0&k=20&c=L-xAz9jGwyz1Z2CJA-ujbVjOTu9GoiNHvi2n694CZMc=',
-                            height: 200,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return const SizedBox(
-                                height: 200,
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
-                            },
-                            errorBuilder: (context, error, stackTrace) {
-                              return const SizedBox(
-                                height: 200,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.broken_image,
-                                    size: 50,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "Building a Sustainable Future",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.purple,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "By Encouraging Handmade And Eco-Friendly Products, We Are Committed To Promoting Sustainability And Reducing The Environmental Impact Of Mass Production.",
-                          style: TextStyle(fontSize: 14, color: Colors.black87),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 16),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Card(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  elevation: 4,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            'https://media.istockphoto.com/id/1214656431/photo/colorful-indian-handicarft-art.jpg?s=612x612&w=0&k=20&c=wLNvASN1uWuxiM0YsReU5-inEuw70lvlofiB7W82gHg=',
-                            height: 200,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return const SizedBox(
-                                height: 200,
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
-                            },
-                            errorBuilder: (context, error, stackTrace) {
-                              return const SizedBox(
-                                height: 200,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.broken_image,
-                                    size: 50,
-                                    color: Colors.red,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "Connecting with Communities",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.purple,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 20),
-                        const Text(
-                          "Our Mission Is To Connect Local Creators With Global Buyers, Bridging The Gap And Creating Opportunities For Sustainable Livelihoods.",
-                          style: TextStyle(fontSize: 14, color: Colors.black87),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 16),
-                      ],
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
               ],
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
